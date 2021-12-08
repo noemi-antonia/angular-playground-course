@@ -8,13 +8,14 @@ import { ShareDataService } from 'src/app/services/share-data.service';
 })
 export class WalletComponent implements OnInit {
 
-  public coinId: string;
+  public lastFavorite: string;
 
   constructor(private sharedData: ShareDataService) { }
 
   ngOnInit(): void {
-    this.sharedData.getCoin().subscribe(coinId => {
-      this.coinId = coinId;
+    this.sharedData.getCoin().subscribe(coinIds => {
+      if(coinIds)
+        this.lastFavorite = Array.from(coinIds).pop();
     })
   }
 

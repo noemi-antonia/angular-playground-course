@@ -29,15 +29,19 @@ export class FavoritesComponent implements OnInit {
 
   ngOnChanges(): void {
     this.setFavorites();
-    console.log("FAVORITES COMPONENT CHANGED");
   }
 
   setFavorites() {
-    this.sharedData.getCoin().subscribe( coinId => {
-      this.favorites = this.coins.filter((coin: CoinInfo) => coin.id === coinId);
+    this.sharedData.getCoin().subscribe( coinIds => {
+      if(!coinIds) return;
+      this.favorites = this.coins.filter((coin: CoinInfo) => coinIds.has(coin.id));
+      
       this.favorites.forEach((favorite) => {
-        favorite.my_currency = this.myCoins[favorite.id] * favorite.current_price;
+        if(this.myCoins.hasOwnProperty(favorite.id)){
+          favorite.my_currency = this.myCoins[favorite.id] * favorite.current_price;
+        }
+        
       })
-    })
+    });
   }
 }

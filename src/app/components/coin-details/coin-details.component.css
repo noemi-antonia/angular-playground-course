@@ -17,8 +17,24 @@
 
 .info-icon {
     color: blue;
+    
 }
 
 .favorite-icon {
     color: orange;
+}
+
+.info-icon, .favorite-icon, .graphic-icon{
+    cursor: pointer;
+}
+
+.popup-item{
+pointer-events: none;
+cursor: none;
+}
+
+.popup-item span{
+    font-weight: bold;
+    background-color:blanchedalmond;
+    padding: 0 5px;
 }

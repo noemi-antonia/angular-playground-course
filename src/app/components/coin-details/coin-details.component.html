@@ -5,7 +5,13 @@
     <ng-container matColumnDef="info">
       <th mat-header-cell *matHeaderCellDef> Info </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon class="info-icon" aria-hidden="false" aria-label="Example home icon">info</mat-icon>
+        <mat-icon class="info-icon" aria-hidden="false" aria-label="Example home icon" [matMenuTriggerFor]="info">info</mat-icon>
+        <mat-menu #info="matMenu">
+          <div mat-menu-item class="popup-item"><span> Market cap</span> {{ element.market_cap}}</div>
+          <div mat-menu-item class="popup-item"><span> 24h High</span> {{ element.high_24h}}</div>
+          <div mat-menu-item class="popup-item"><span> 24h Low</span> {{ element.low_24h}}</div>
+          <div mat-menu-item class="popup-item"><span> 24h Price change %</span> {{ element.price_change_percentage_24h}}</div>
+        </mat-menu>
       </td>
     </ng-container>
 
@@ -41,6 +47,7 @@
       <td mat-cell *matCellDef="let element"> {{element.last_updated | date: "short" }} </td>
     </ng-container>
 
+    <!-- Favorites -->
     <ng-container matColumnDef="favorites">
       <th mat-header-cell *matHeaderCellDef> Favorites </th>
       <td mat-cell *matCellDef="let element">
@@ -49,6 +56,17 @@
         </mat-icon>
       </td>
     </ng-container>
+
+    <!-- Graphic -->
+    <ng-container matColumnDef="graphic">
+      <th mat-header-cell *matHeaderCellDef> Graphic </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon class="graphic-icon" (click)="showCoinChart(element)">
+          show_chart
+        </mat-icon>
+      </td>
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

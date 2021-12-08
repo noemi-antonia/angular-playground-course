@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class CoinDetailsComponent implements OnInit {
 
-  displayedColumns: string[] = ['info', 'image', 'name', 'current_price', 'symbol', 'last_updated', 'favorites'];
+  displayedColumns: string[] = ['info', 'image', 'name', 'current_price', 'symbol', 'last_updated', 'favorites', 'graphic'];
   dataSource = new MatTableDataSource<CoinInfo>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -20,12 +20,15 @@ export class CoinDetailsComponent implements OnInit {
   public setFavorite(element: CoinInfo): void {
     if(this.favoritesSet.has(element.id)) {
       this.favoritesSet.delete(element.id);
-      console.log('deleted');
+      this.sharedData.coin$.next(this.favoritesSet);
     } else {
       this.favoritesSet.add(element.id);
-      this.sharedData.coin$.next(element.id);
-      console.log('added');
+      this.sharedData.coin$.next(this.favoritesSet);
     }
+  }
+
+  public showCoinChart(element: CoinInfo): void{
+    this.sharedData.graphicCoin$.next(element.id);
   }
 
   public favoritesSet = new Set<string>();

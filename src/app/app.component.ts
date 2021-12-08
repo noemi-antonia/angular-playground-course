@@ -1,6 +1,7 @@
 import { CoinInfo } from './models/CoinInfo';
 import { Component } from '@angular/core';
 import { CoinsService } from './services/coins.service';
+import { timer } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,13 +17,14 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.getCoinsData();
-    window.setInterval(this.getCoinsData.bind(this), 20000);
-    console.log("APP COMPONENT INITIALIZED");
   }
 
   getCoinsData() {
-    this.coinsService.getCoins().subscribe((response) => {
-      this.coins = response;
-    })
+    timer(0, 20000).subscribe(() => {
+      this.coinsService.getCoins().subscribe((response) => {
+        this.coins = response;
+      })
+    }
+    )
   }
 }

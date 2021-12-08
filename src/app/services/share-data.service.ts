@@ -7,11 +7,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ShareDataService {
 
-  public coin$ = new BehaviorSubject<string>(undefined);
+  public coin$ = new BehaviorSubject<Set<string>>(undefined);
+
+  public graphicCoin$ = new BehaviorSubject<string>(undefined);
 
   constructor() { }
 
-  public getCoin(): Observable<string> {
+  public getCoin(): Observable<Set<string>> {
     return this.coin$.asObservable();
+  }
+
+  public getGraphicCoin(): Observable<string> {
+    return this.graphicCoin$.asObservable();
   }
 }

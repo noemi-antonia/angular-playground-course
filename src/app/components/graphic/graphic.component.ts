@@ -1,3 +1,4 @@
+import { ShareDataService } from './../../services/share-data.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GraphicComponent implements OnInit {
 
-  constructor() { }
+  idOfCoin: string;
+
+  constructor(private sharedData: ShareDataService) { }
 
   ngOnInit(): void {
+    this.sharedData.getGraphicCoin().subscribe((coinId) => {
+      this.idOfCoin = coinId;
+    });
   }
 
 }
