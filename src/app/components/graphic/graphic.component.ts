@@ -16,9 +16,15 @@ export class GraphicComponent implements OnInit {
   public coinValues: number[] = [];
   public updateOptions: any;
 
+  public selectedCoin: string;
+
+  public isLine = false;
+  public chartName: string = 'bar';
+  public chartType: string = 'bar';
+
   public options: any = {
     legend: {
-      data: ['bar'],
+      data: [this.chartName],
       align: 'left',
     },
     tooltip: {},
@@ -32,8 +38,8 @@ export class GraphicComponent implements OnInit {
     yAxis: {},
     series: [
       {
-        name: 'bar',
-        type: 'bar',
+        name: this.chartName,
+        type: this.chartType,
         data: this.coinValues,
         animationDelay: (idx: number) => idx * 10,
       },
@@ -51,6 +57,7 @@ export class GraphicComponent implements OnInit {
     this.sharedData
       .getSelectedCoin()
       .pipe(switchMap(coinId => {
+        this.selectedCoin = coinId;
         return this.coinService.getHistoryDataForCoin(coinId)
       })).subscribe((chartData: ChartData) => {
           this.formatChartData(chartData);
@@ -82,5 +89,21 @@ export class GraphicComponent implements OnInit {
     }
 
     this.cdr.markForCheck();
+  }
+
+  changeGraphicType(){
+    this.chartType=(this.isLine) ? "line" : "bar";
+    this.chartName=this.chartType;
+  
+    this.updateOptions = {
+      legend: {
+        data: [this.chartName]
+      },
+      series: [{
+        name: this.chartName,
+        type: this.chartType,
+        data: this.coinValues
+      }]
+    };
   }
 }

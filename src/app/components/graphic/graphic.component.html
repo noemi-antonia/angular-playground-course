@@ -1,8 +1,14 @@
 <mat-card class="container">
   <mat-card-title>
-    Graphic
+    Graphic {{ selectedCoin }}
   </mat-card-title>
   <mat-card-content>
-    <div echarts [options]="options" [merge]="updateOptions" class="demo-chart"></div>
+    <div *ngIf="selectedCoin">
+      <div echarts [options]="options" [merge]="updateOptions" class="demo-chart"></div>
+      <mat-slide-toggle [checked]="isLine" (change)="isLine= $event.source.checked; changeGraphicType()">Change chart type</mat-slide-toggle>
+    </div>
+    <div *ngIf="!selectedCoin">
+      Please select a coin for generate the chart
+    </div> 
   </mat-card-content>
 </mat-card>
