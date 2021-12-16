@@ -34,7 +34,7 @@
           >
             <mat-option
               *ngFor="let coin of coins$ | async"
-              [value]="coin.current_price"
+              [value]="coin"
               >{{ coin.id }}</mat-option
             >
           </mat-select>
@@ -69,10 +69,10 @@
   </mat-card-content>
   <mat-card-actions class="card-button-actions">
     <div>
-      <button mat-raised-button color="primary" [disabled]="overPrice">
+      <button (click)="buy()" mat-raised-button color="primary" [disabled]="overPrice">
         Buy
       </button>
-      <button mat-raised-button color="secondary" [disabled]="overPrice">
+      <button (click)="sell()" mat-raised-button color="secondary" [disabled]="overPrice">
         Sell
       </button>
     </div>
