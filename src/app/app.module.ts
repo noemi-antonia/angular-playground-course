@@ -28,11 +28,15 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule, Routes } from '@angular/router';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'history', component: TransactionComponent },
+
+  // wrong route
+  { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
 @NgModule({
   declarations: [
@@ -47,6 +51,7 @@ const routes: Routes = [
     WalletComponent,
     GraphicComponent,
     CurrentCurrencyComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     BrowserModule,
